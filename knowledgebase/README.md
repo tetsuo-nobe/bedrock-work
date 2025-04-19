@@ -41,7 +41,7 @@
 1. ページ左側で **Bedrock configurations** の **モデルアクセス** を選択します。
 1. **特定のモデルを有効にする** を選択します。
 1. 下記のモデルのチェックボックスをチェックします。
-    - **Amazon** の **Titan Embeddings V2** 
+    - **Amazon** の **Titan Text Embeddings V2** 
     - **Amazon** の **Nova Lite**
 1. **次へ**　を選択します。
 1. **送信**　を選択します。
