@@ -6,7 +6,7 @@
 * ベクトルデータベースとして Amazon OpenSearch Serverless を使用します。
 * 作成したナレッジベースは、AWS マネジメントコンソールのテスト機能から動作確認を行います。
 
-* 図
+![概要](images/overview.png)
 
 ---
 ## 準備
