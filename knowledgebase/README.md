@@ -2,7 +2,7 @@
 
 * このワークでは、Amazon Bedrock のナレッジベースを作成します。
 * 架空の会社 AnyCompany の休暇規定の PDF ファイルを Amazon S3 バケットに格納しデータソースとします。
-* Embed モデルとして Amazon Titan Embeddings v2 を使用します。
+* Embed モデルとして Amazon Titan Text Embeddings v2 を使用します。
 * ベクトルデータベースとして Amazon OpenSearch Serverless を使用します。
 * 作成したナレッジベースは、AWS マネジメントコンソールのテスト機能から動作確認を行います。
 
