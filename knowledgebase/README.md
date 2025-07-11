@@ -12,7 +12,7 @@
 ## 準備
 
 * インストラクターが指定した環境で AWS マネジメントコンソールにサインインして下さい。
-* AWS マネジメントコンソールで東京リージョン(ap-northeast-1)を選択した状態にしてください。
+* AWS マネジメントコンソールで、**指定されたリージョン**を選択した状態にしてください。
 * ご自分に割り当てられた **2桁の番号**を覚えておいてください。
 * 下記をクリックして、Download Raw file アイコンから **AnyCompany.pdf** をダウンロードして下さい。
     - (https://github.com/tetsuo-nobe/bedrock-work/blob/main/knowledgebase/AnyCompany.pdf)
