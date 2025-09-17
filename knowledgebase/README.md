@@ -121,15 +121,15 @@
 1. **bedrock-knowledge-base-** から始まるベクトルインデックス名をメモしします。
 1. マネジメントコンソールの上の黒いバーにある **CloudShell** のアイコン（検索入力エリアの右側）をクリックします。
     - CloudShell が起動し、ページ下側でコマンドが入力できるようになります。
-1. 下記のコマンドを実行して、ベクトルインデックスを削除します。
+1. 下記のコマンドを実行して、ベクトルインデックスとベクトルバケットを削除します。
     - ```
-      aws s3vectors delete-index --vector-bucket-name "メモしておいたベクトルバケット名" \
-          --index-name "メモしておいたベクトルインデックス名"
-      ```
-1. 下記のコマンドを実行して、ベクトルバケットを削除します。
-    - ```
+      BUCKET=メモしておいたベクトルバケット名
+      INDEX=メモしておいたベクトルインデックス名
+
+      aws s3vectors delete-index --vector-bucket-name "${BUCKET}" \
+                  --index-name "${INDEX}"
       aws s3vectors delete-vector-bucket \
-         --vector-bucket-name "メモしておいたベクトルバケット名"
+          --vector-bucket-name "${BUCKET}"
       ```
 
 1. CloudShell の右上にある X をクリックして閉じます。
