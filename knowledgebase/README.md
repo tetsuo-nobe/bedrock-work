@@ -6,7 +6,7 @@
 * ベクトルデータベースとして Amazon S3 Vectors を使用します。
 * 作成したナレッジベースは、AWS マネジメントコンソールのテスト機能から動作確認を行います。
 
-![概要](images/overview.png)
+![概要](images/overview-v2.png)
 
 ---
 ## 準備
