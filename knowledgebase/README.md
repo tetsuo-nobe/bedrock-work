@@ -116,9 +116,23 @@
 
 ## Amazon S3 Vectors の削除
 1. AWS マネジメントコンソールのページ上部の **検索**で `s3` と入力して **Amazon S3** のメニューを選択します。
-1. ページ左側で **Serverless** の **Collections** を選択します。
-1. **コレクション名** が **becrock-knowledge-base-** から始まる行のチェックボックスをチェックします。
+1. ページ左側で **ベクトルバケット** を選択します。
+1. **bedrock-knowledge-base-** から始まるベクトルバケット名をメモして、その名前のリンクを選択します。
+1. **bedrock-knowledge-base-** から始まるベクトルインデックス名をメモしします。
+1. マネジメントコンソールの上の黒いバーにある **CloudShell** のアイコン（検索入力エリアの右側）をクリックします。
+    - CloudShell が起動し、ページ下側でコマンドが入力できるようになります。
+1. 下記のコマンドを実行して、ベクトルインデックスを削除します。
+    - ```
+      aws s3vectors delete-index --vector-bucket-name "メモしておいたベクトルバケット名" \
+          --index-name "メモしておいたベクトルインデックス名"
+      ```
+1. 下記のコマンドを実行して、ベクトルバケットを削除します。
+    - ```
+      aws s3vectors delete-vector-bucket \
+         --vector-bucket-name "メモしておいたベクトルバケット名"
+      ```
 
+1. CloudShell の右上にある X をクリックして閉じます。
 
 ## Amazon S3 のオブジェクトとバケットの削除
 
