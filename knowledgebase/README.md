@@ -111,6 +111,28 @@
 ### オプションタスク：作成したナレッジベースをコードから使用するタスクを実行する場合は今を実施して下さい。
 #### 実施しない場合は、[リソースの削除](#リソースの削除) の手順を実行して下さい。
 
+1. AWS マネジメントコンソールから、作成したナレッジベースの ID をメモしておきます。
+
+1. 講師が案内した開発環境へアクセスします。
+
+1. ターミナルから以下のコマンドを実行して、AWS SDK for Python (boto3) を最新のものに更新します。
+    - `ppip3 install boto3 --upgrade`
+
+1. サンプルの Git リポジトリをクローンします。
+    - `git clone https://github.com/tetsuo-nobe/dev_gen_ai_app_on_aws`
+
+1. 以下のファイルを開き、コードを確認します。
+    - **dev_gen_ai_app_on_aws/BedrockKnowledgebaseExamples/BedrockKnowledgebaseExample.py**
+    - **環境に合わせて必要な部分を書き換えて保存します。**
+        - ヒント：8行目のリージョン、9行目のナレッジベースの ID
+
+1. ターミナルから以下のコマンドを実行して、コードを実行します。
+    - ```
+      cd ~/environment/dev_gen_ai_app_on_aws/BedrockKnowledgebaseExamples
+      python3 BedrockKnowledgebaseExample.py
+      ```
+
+1. **コードから Bedrock のナレッジベースを使用した問い合わせができたおとを確認しました。**
 
 ---
 ###  リソースの削除
