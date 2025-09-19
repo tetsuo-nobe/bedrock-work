@@ -128,7 +128,7 @@
 1. 以下のファイルを開き、コードを確認します。
     - **dev_gen_ai_app_on_aws/BedrockKnowledgebaseExamples/BedrockKnowledgebaseExample.py**
     - **環境に合わせて必要な部分を書き換えて保存します。**
-        - ヒント：8行目のリージョン、9行目のナレッジベースの ID
+        - ヒント：8行目のリージョンと AWS アカウント ID、9行目のナレッジベースの ID
 
 1. ターミナルから以下のコマンドを実行して、コードを実行します。
     - ```
