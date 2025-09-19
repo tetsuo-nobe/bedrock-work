@@ -162,7 +162,7 @@ def lambda_handler(event, context):
 1. 講師が案内した開発環境へアクセスします。
 
 1. ターミナルから以下のコマンドを実行して、AWS SDK for Python (boto3) を最新のものに更新します。
-    - `ppip3 install boto3 --upgrade`
+    - `pip3 install boto3 --upgrade`
 
 1. サンプルの Git リポジトリをクローンします。
     - `git clone https://github.com/tetsuo-nobe/dev_gen_ai_app_on_aws`
@@ -207,6 +207,7 @@ def lambda_handler(event, context):
 ### お疲れさまでした。
 
 * **このワークの環境は、ワークを実施する時間帯のみ使用可能です。**
+
 
 
 
