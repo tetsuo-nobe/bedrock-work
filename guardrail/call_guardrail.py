@@ -56,8 +56,8 @@ def main():
     model_id="us.amazon.nova-lite-v1:0"
 
     # The ID and version of the guardrail.
-    guardrail_id = "gfr2avovtm3x"
-    guardrail_version = "2"
+    guardrail_id = "xxxxxxxxxxxx"
+    guardrail_version = "1"
 
     # Configuration for the guardrail.
     guardrail_config = {
