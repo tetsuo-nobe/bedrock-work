@@ -129,7 +129,7 @@
 
 1. ターミナルから以下のコマンドを実行して、コードを実行します。
     - ```
-      python3 BedrockKnowledgebaseExample.py
+      python3 call_kb.py
 
       ```
 
