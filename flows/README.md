@@ -1,6 +1,6 @@
 # Amazon Bedrock Flows でブログを生成するワークフローを作成してみよう
 
-* このワークでは、Amazon Bedrock Flows のワークフローを作成します。
+* このワークでは、Amazon Bedrock Flows でブログ記事を生成・保存するワークフローを作成します。
 
 
 ![概要](images/overview-s3vectors.png)
@@ -163,4 +163,5 @@
 
 
    
+
 
