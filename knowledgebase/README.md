@@ -122,18 +122,13 @@
 1. ターミナルから以下のコマンドを実行して、AWS SDK for Python (boto3) を最新のものに更新します。
     - `pip3 install boto3 --upgrade`
 
-1. サンプルの Git リポジトリをクローンします。
-    - `git clone https://github.com/tetsuo-nobe/dev_gen_ai_app_on_aws`
-
 1. 以下のファイルを開き、コードを確認します。
-    - **dev_gen_ai_app_on_aws/BedrockKnowledgebaseExamples/BedrockKnowledgebaseExample.py**
+    - **call_kb.py**
     - **環境に合わせて必要な部分を書き換えて保存します。**
         - ヒント：8行目のリージョンと AWS アカウント ID、9行目のナレッジベースの ID
 
 1. ターミナルから以下のコマンドを実行して、コードを実行します。
     - ```
-      cd ~/environment/dev_gen_ai_app_on_aws/BedrockKnowledgebaseExamples
-      
       python3 BedrockKnowledgebaseExample.py
 
       ```
