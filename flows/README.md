@@ -3,7 +3,7 @@
 * このワークでは、Amazon Bedrock Flows でブログ記事を生成・保存するワークフローを作成します。
 
 
-![概要](images/overview-s3vectors.png)
+![概要](images/flow-overview.png)
 
 ---
 ## 準備
@@ -63,7 +63,7 @@
 
 1. キャンバスで、Prompts ノードの Output の右横の丸を、Flow output ノードの Input の丸にドラッグアンドドロップでつなげる
 
-![概要](images/overview-s3vectors.png)
+![概要](images/flow1.png)
 
 1. [保存] を選択し、正常に保存できることを確認
 
@@ -102,7 +102,7 @@
 
 1. S3 Storage ノードの Input の objectKey の左横の丸を、Flow Input ノードの　Output の丸にドラッグアンドドロップでつなげる
 
-![概要](images/overview-s3vectors.png)
+![概要](images/flow2.png)
 
 1. S3 Storage ノードを選択
 
@@ -163,5 +163,6 @@
 
 
    
+
 
 
