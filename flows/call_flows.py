@@ -10,8 +10,8 @@ input = {"dest":"東京", "count": 3, "objectKey": "blog2.md"}
 try:
     # フローを呼び出し
     response = client.invoke_flow(
-        flowIdentifier='DY58AGB49K',  # フロー ID
-        flowAliasIdentifier='TSTALIASID',  # エイリアス ID
+        flowIdentifier='XXXXXXXXXX',  # フロー ID
+        flowAliasIdentifier='XXXXXXXXXX',  # エイリアス ID
         inputs=[
             {
                 'content': {
@@ -38,3 +38,4 @@ if response['ResponseMetadata']['HTTPStatusCode'] == 200:
         elif 'flowCompletionEvent' in event:
             print("フロー完了")
             break
+
