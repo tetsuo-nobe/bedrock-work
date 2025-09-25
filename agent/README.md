@@ -164,19 +164,14 @@ def lambda_handler(event, context):
 1. ターミナルから以下のコマンドを実行して、AWS SDK for Python (boto3) を最新のものに更新します。
     - `pip3 install boto3 --upgrade`
 
-1. サンプルの Git リポジトリをクローンします。
-    - `git clone https://github.com/tetsuo-nobe/dev_gen_ai_app_on_aws`
-
 1. 以下のファイルを開き、コードを確認します。
-    - **dev_gen_ai_app_on_aws/BedrockAgentExamples/BedrockAgentExampleSimpleVersion.py **
+    - **call_agent.py**
     - **環境に合わせて必要な部分を書き換えて保存します。**
         - ヒント：6行目のエージェントの ID、7行目のエイリアスの ID
 
 1. ターミナルから以下のコマンドを実行して、コードを実行します。
     - ```
-      cd ~/environment/dev_gen_ai_app_on_aws/BedrockAgentExamples/
-
-      python3 BedrockAgentExampleSimpleVersion.py
+      python3 call_agent.py
       
       ```
 
@@ -207,6 +202,7 @@ def lambda_handler(event, context):
 ### お疲れさまでした。
 
 * **このワークの環境は、ワークを実施する時間帯のみ使用可能です。**
+
 
 
 
