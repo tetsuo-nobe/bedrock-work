@@ -162,7 +162,7 @@ def lambda_handler(event, context):
 
 1. 講師が案内した開発環境へアクセスします。
 
-1. ターミナルから以下のコマンドを実行して、AWS SDK for Python (boto3) を最新のものに更新します。
+1. ターミナルから以下のコマンドを実行して、AWS SDK for Python (boto3) を最新のものに更新します。(すでに実施済の場合は不要です。）
     - `pip3 install boto3 --upgrade`
 
 1. 以下のファイルを開き、コードを確認します。
@@ -203,6 +203,7 @@ def lambda_handler(event, context):
 ### お疲れさまでした。
 
 * **このワークの環境は、ワークを実施する時間帯のみ使用可能です。**
+
 
 
 
