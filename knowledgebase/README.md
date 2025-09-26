@@ -131,7 +131,7 @@
 
 1. ターミナルから以下のコマンドを実行して、コードを実行します。
     - ```
-      cd ~/environment//bedrock-work/knowledgebase/
+      cd ~/environment/bedrock-work/knowledgebase/
   
       python3 call_kb.py
 
