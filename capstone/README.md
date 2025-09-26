@@ -34,7 +34,10 @@
 
 1. VS Code Server で Streamlit をインストールします。
     - ```
+      cd ~/environment/bedrock-work/capstone/
+      
       pip install  streamlit
+      
       ```
 
 1. capstone フォルダの agent_chat.py コードの必要部分を書き換えます。
@@ -51,6 +54,7 @@
       {"dest": "長野県", "count":"3", "objectKey": "nagano.md" }
       ```
       
+
 
 
 
