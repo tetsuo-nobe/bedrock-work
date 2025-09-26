@@ -166,12 +166,14 @@ def lambda_handler(event, context):
     - `pip3 install boto3 --upgrade`
 
 1. 以下のファイルを開き、コードを確認します。
-    - **call_agent.py**
+    - **bedrock-work/agent/call_agent.py**
     - **環境に合わせて必要な部分を書き換えて保存します。**
         - ヒント：6行目のエージェントの ID、7行目のエイリアスの ID
 
 1. ターミナルから以下のコマンドを実行して、コードを実行します。
     - ```
+      cd ~/environment/bedrock-work/agent/
+
       python3 call_agent.py
       
       ```
@@ -203,6 +205,7 @@ def lambda_handler(event, context):
 ### お疲れさまでした。
 
 * **このワークの環境は、ワークを実施する時間帯のみ使用可能です。**
+
 
 
 
