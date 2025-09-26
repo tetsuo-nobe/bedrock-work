@@ -10,8 +10,8 @@ USER = "user"
 ASSISTANT = "assistant"
 
 # Agentの定義
-agent_id: str = "WGGUJOZOIO"  # Agent IDを入力
-agent_alias_id: str = "CEJ9A9HY79"  # Alias IDを入力
+agent_id: str = "XXXXXXXXXX"  # Agent IDを入力
+agent_alias_id: str = "XXXXXXXXXX"  # Alias IDを入力
 
 
 # セッションステートに client が無ければ初期化
