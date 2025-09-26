@@ -125,12 +125,14 @@
     - `pip3 install boto3 --upgrade`
 
 1. 以下のファイルを開き、コードを確認します。
-    - **call_kb.py**
+    - **bedrock-work/knowledgebase/call_kb.py**
     - **環境に合わせて必要な部分を書き換えて保存します。**
         - ヒント：8行目のリージョンと AWS アカウント ID、9行目のナレッジベースの ID
 
 1. ターミナルから以下のコマンドを実行して、コードを実行します。
     - ```
+      cd ~/environment//bedrock-work/knowledgebase/
+  
       python3 call_kb.py
 
       ```
