@@ -48,6 +48,8 @@
 
 1. メモしておいたパスワードを入力して SUBMIT を選択し、VS Code Server を表示します。
 
+1. 左上の三本線メニューから **Terminal** - **New Terminal** を選択します。
+
 1. VS Code Server のターミナルで下記を実行し、このリポジトリを取得します。
     - ```
       git clone https://github.com/tetsuo-nobe/bedrock-work
