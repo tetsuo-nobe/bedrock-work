@@ -51,9 +51,10 @@
 
 1. クリア条件の入力データ
     - ```
-      {"dest": "長野県", "count":"3", "objectKey": "nagano.md" }
+      {"dest": "長野県", "count": 3, "objectKey": "nagano.md" }
       ```
       
+
 
 
 
