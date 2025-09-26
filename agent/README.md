@@ -180,6 +180,7 @@ def lambda_handler(event, context):
 
 1. **コードから Bedrock のエージェントを使用した問い合わせができたことを確認しました。**
 
+* 参考ドキュメント: [boto3 ドキュメントの invoke_agent](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agent-runtime/client/invoke_agent.html)
 ---
 # リソースの削除
 
@@ -205,6 +206,7 @@ def lambda_handler(event, context):
 ### お疲れさまでした。
 
 * **このワークの環境は、ワークを実施する時間帯のみ使用可能です。**
+
 
 
 
