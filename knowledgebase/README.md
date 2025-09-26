@@ -139,6 +139,7 @@
 
 1. **コードから Bedrock のナレッジベースを使用した問い合わせができたことを確認しました。**
 
+* 参考ドキュメント: [boto3 ドキュメントの retrieve_and_generate](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agent-runtime/client/retrieve_and_generate.html)
 ---
 ###  リソースの削除
 
