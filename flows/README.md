@@ -172,6 +172,8 @@
 
 1. **コードから Bedrock のフローを実行できたことを確認しました。**
 
+* 参考ドキュメント: [boto3 ドキュメントの invoke_flow](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agent-runtime/client/invoke_flow.html)
+  
 ---
 ## リソースの削除
 
@@ -210,6 +212,7 @@
 
 
    
+
 
 
 
