@@ -46,7 +46,7 @@
 
 1. CloudFormation のページに戻り、**URL** の値のリンクを選択します。
 
-1. メモしておいたパスワードを入力して、VS Code Server を表示します。
+1. メモしておいたパスワードを入力して SUBMIT を選択し、VS Code Server を表示します。
 
 1. VS Code Server のターミナルで下記を実行し、このリポジトリを取得します。
     - ```
