@@ -104,19 +104,18 @@
 
 1. 講師が案内した開発環境へアクセスします。
 
-1. ターミナルから以下のコマンドを実行して、AWS SDK for Python (boto3) を最新のものに更新します。
+1. ターミナルから以下のコマンドを実行して、AWS SDK for Python (boto3) を最新のものに更新します。(すでに実施済の場合は不要です。）
     - `pip3 install boto3 --upgrade`
 
-1. サンプルの Git リポジトリをクローンします。
-    - `git clone https://github.com/tetsuo-nobe/dev_gen_ai_app_on_aws`
-
 1. 以下のファイルを開き、コードを確認します。
-    - **call_guardrail.py**
+    - **bedrock-work/guardrail/call_guardrail.py**
     - **環境に合わせて必要な部分を書き換えて保存します。**
         - ヒント：59行目のガードレールの ID、60行目のバージョン
 
 1. ターミナルから以下のコマンドを実行して、コードを実行します。
     - ```
+      cd ~/environment/bedrock-work/guardrail/
+
       python3 call_guardrail.py
       
       ```
@@ -141,6 +140,7 @@
 ### お疲れさまでした。
 
 * **このワークの環境は、ワークを実施する時間帯のみ使用可能です。**
+
 
 
 
