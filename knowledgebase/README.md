@@ -19,7 +19,7 @@
     - (https://github.com/tetsuo-nobe/bedrock-work/blob/main/knowledgebase/AnyCompany.pdf)
     - この PDF は架空の会社 AnyCompany の休暇規定です。
 
-<!--
+
 ---
 ## Amazon S3 バケットの作成と PDF ファイルの格納
 
@@ -34,8 +34,8 @@
 1. **ファイルを追加** をクリックしてダウンロードしていた **AnyCompany.pdf** を指定します。
 1. **アップロード**　を選択します。
 1. **閉じる**　を選択します。
--->
 
+<!--
 ---
 ## 基盤モデルのアクセスの有効化
 
@@ -50,6 +50,7 @@
     - **Amazon** の **Nova Lite**
 1. **次へ** を選択します。
 1. **送信** を選択します。
+-->
 
 ---
 ## Amazon Bedrock ナレッジベースの作成
