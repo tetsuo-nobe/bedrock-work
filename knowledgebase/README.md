@@ -133,7 +133,12 @@
 1. 講師が案内した開発環境へアクセスします。
 
 1. ターミナルから以下のコマンドを実行して、AWS SDK for Python (boto3) を最新のものに更新します。
-    - `pip3 install boto3 --upgrade`
+    - ```
+      cd ~/environment
+  
+      pip3 install boto3 --upgrade
+
+      ```
 
 1. 以下のファイルを開き、コードを確認します。
     - **bedrock-work/knowledgebase/call_kb.py**
