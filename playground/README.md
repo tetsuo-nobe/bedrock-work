@@ -71,7 +71,7 @@
       customize FMs with their own data, and easily integrate and deploy them into their applications using the AWS 
       tools and capabilities they are familiar with, without having to manage any infrastructure (including integrations 
       with Amazon SageMaker ML features like Experiments to test different models and Pipelines to manage their FMs at scale).
-    ```
+      ```
    　 
    
 1. 翻訳された結果が日本語で表示されることを確認します。
@@ -147,6 +147,7 @@
 1. 画像が 1 枚出力されることを確認します。
 
 ### お疲れさまでした！生成 AI でどのようなことができるかを確認できました。
+
 
 
 
