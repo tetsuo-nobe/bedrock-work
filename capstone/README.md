@@ -36,7 +36,7 @@
     - ```
       cd ~/environment/bedrock-work/capstone/
       
-      pip install  streamlit
+      pip3 install  streamlit
       
       ```
 
@@ -54,6 +54,7 @@
       {"dest": "長野県", "count": 3, "objectKey": "nagano.md" }
       ```
       
+
 
 
 
