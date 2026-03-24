@@ -19,6 +19,11 @@
     - (https://github.com/tetsuo-nobe/bedrock-work/blob/main/knowledgebase/AnyCompany.pdf)
     - この PDF は架空の会社 AnyCompany の休暇規定です。
 
+---
+## 環境へのアクセス
+
+* アクセスは [こちら](https://d-9567586b55.awsapps.com/start) 
+* 講師が URL とユーザー ID やパスワードをご案内します。
 
 ---
 ## Amazon S3 バケットの作成と PDF ファイルの格納
