@@ -6,7 +6,7 @@
 ## 環境へのアクセス
 
 * 講師が URL とユーザー ID やパスワードをご案内します。
-* アクセスは [こちら](https://d-99999999.awsapps.com/start) 
+* アクセスは [こちら](https://d-9567586b55.awsapps.com/start) 
 
 ## Amazon Bedrock のプレイグラウンドを使用する準備を行いましょう
 
