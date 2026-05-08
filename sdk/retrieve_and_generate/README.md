@@ -6,9 +6,7 @@
 
 ## アーキテクチャ
 
-```
-[Web ブラウザ] → [Amazon API Gateway (REST API)] → [AWS Lambda (Python 3.14)] → [Amazon Bedrock ナレッジベース (RetrieveAndGenerate API)]
-```
+![](images/ovewview.png)
 
 ### 使用する AWS サービス
 
