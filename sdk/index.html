@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Bedrock 生成 AI ハンズオン</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", Meiryo, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #232f3e;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            padding: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 6px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #ff9900;
+            box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.15);
+        }
+
+        textarea {
+            height: 120px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background-color: #2563eb;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-submit:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .result-section {
+            margin-top: 28px;
+            padding-top: 24px;
+            border-top: 1px solid #eee;
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 10px;
+        }
+
+        .result-box {
+            background-color: #f9fafb;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            min-height: 80px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #333;
+        }
+
+        .result-box.empty {
+            color: #999;
+            font-style: italic;
+        }
+
+        .result-box.error {
+            background-color: #fef2f2;
+            border-color: #fecaca;
+            color: #dc2626;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #ddd;
+            border-top-color: #ff9900;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Amazon Bedrock 生成 AI ハンズオン</h1>
+    <p class="subtitle">Amazon Nova Lite v1 にプロンプトを送信して回答を取得します</p>
+
+    <div class="container">
+        <div class="form-group">
+            <label for="endpoint">API エンドポイント</label>
+            <input type="text" id="endpoint" placeholder="https://xxxxxxxxxx.execute-api.us-west-2.amazonaws.com/prod/invoke">
+        </div>
+
+        <div class="form-group">
+            <label for="prompt">プロンプト</label>
+            <textarea id="prompt" placeholder="例：日本の首都はどこですか？"></textarea>
+        </div>
+
+        <button class="btn-submit" id="submitBtn" onclick="sendPrompt()">送信</button>
+
+        <div class="loading" id="loading">
+            <span class="spinner"></span>回答を生成中です...
+        </div>
+
+        <div class="result-section">
+            <p class="result-label">回答</p>
+            <div class="result-box empty" id="result">ここに回答が表示されます</div>
+        </div>
+    </div>
+
+    <script>
+        async function sendPrompt() {
+            const endpoint = document.getElementById("endpoint").value.trim();
+            const prompt = document.getElementById("prompt").value.trim();
+            const resultBox = document.getElementById("result");
+            const loading = document.getElementById("loading");
+            const submitBtn = document.getElementById("submitBtn");
+
+            // 入力チェック
+            if (!endpoint) {
+                alert("API エンドポイントを入力してください。");
+                return;
+            }
+            if (!prompt) {
+                alert("プロンプトを入力してください。");
+                return;
+            }
+
+            // UI を送信中の状態にする
+            submitBtn.disabled = true;
+            loading.classList.add("active");
+            resultBox.textContent = "";
+            resultBox.className = "result-box empty";
+            resultBox.textContent = "ここに回答が表示されます";
+
+            try {
+                // API Gateway にリクエストを送信
+                const response = await fetch(endpoint, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ prompt: prompt })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // 成功時：回答を表示
+                    resultBox.textContent = data.response;
+                    resultBox.className = "result-box";
+                } else {
+                    // エラー時：エラーメッセージを表示
+                    resultBox.textContent = "エラー: " + (data.error || "不明なエラーが発生しました。");
+                    resultBox.className = "result-box error";
+                }
+            } catch (error) {
+                // 通信エラー時
+                resultBox.textContent = "通信エラー: API エンドポイントに接続できませんでした。URL を確認してください。";
+                resultBox.className = "result-box error";
+            } finally {
+                // UI を元に戻す
+                submitBtn.disabled = false;
+                loading.classList.remove("active");
+            }
+        }
+
+        // Enter キーで送信（Shift+Enter は改行）
+        document.getElementById("prompt").addEventListener("keydown", function(e) {
+            if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                sendPrompt();
+            }
+        });
+    </script>
+</body>
+</html>
