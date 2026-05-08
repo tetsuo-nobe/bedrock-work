@@ -7,7 +7,7 @@
 ## アーキテクチャ
 
 ```
-[Web ブラウザ] → [Amazon API Gateway (REST API)] → [AWS Lambda (Python 3.14)] → [Amazon Bedrock (Nova Lite v1)]
+![](images/overview.png)
 ```
 
 ### 使用する AWS サービス
