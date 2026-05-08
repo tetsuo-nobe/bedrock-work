@@ -6,7 +6,7 @@
 
 ## アーキテクチャ
 
-![](images/ovewview.png)
+![](images/overview.png)
 
 ### 使用する AWS サービス
 
