@@ -175,7 +175,7 @@ def lambda_handler(event, context):
 | 項目 | 値 |
 |------|-----|
 | API 名 | `bedrock-rag-api` |
-| 説明 | Bedrock ナレッジベースハンズオンの API |
+| 説明 | `Bedrock ナレッジベースハンズオンの API` |
 | エンドポイントタイプ | リージョン |
 
 5. 「**API を作成**」をクリックします
