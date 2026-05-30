@@ -251,8 +251,9 @@ Bedrock の応答には時間がかかる場合があるため、タイムアウ
 ハンズオン終了後、以下のリソースを削除してください：
 
 1. **Lambda 関数**: `bedrock-genai-function` を削除
-2. **API Gateway**: `bedrock-genai-api` を削除
-3. **IAM ロール**: Lambda 用に作成されたロールを削除（任意）
+1. **API Gateway**: `bedrock-genai-api` を削除
+1. **CloudWatch ログ**: 「ログ管理」からロググループで「bedrock-genai-function」を含むものを削除
+1. **IAM ロール**: Lambda 用に作成されたロールを削除（任意）
 
 ---
 
