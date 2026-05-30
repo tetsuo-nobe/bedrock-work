@@ -212,7 +212,7 @@ Bedrock の応答には時間がかかる場合があるため、タイムアウ
 
 ### ステップ 8: 動作確認
 
-1. 以下の URL にアクセスします：
+1. ブラウザで新しいタブを開いて以下の URL にアクセスします：
 
    `https://tnobep-work-public.s3.ap-northeast-1.amazonaws.com/bedrock-work/index.html`
 
