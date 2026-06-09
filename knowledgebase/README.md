@@ -205,7 +205,7 @@
 * (講師が行います。）
 * CloudShell から下記を実行
     ```
-    curl -L -o bedrock-s3-clear.sh https://tnobep-demo-public.s3.amazonaws.com/bedrock-s3-clear.sh && bash bedrock-s3-clear.sh us-west-2
+    curl -L -o bedrock-s3-clear.sh https://tnobep-demo-public.s3.amazonaws.com/bedrock-s3-clear.sh && bash bedrock-s3-clear.sh ap-northeast-1
     ```
 
 
