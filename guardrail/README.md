@@ -155,29 +155,30 @@
 import json
 import boto3
 
+# Bedrock Runtime クライアントの作成
+client = boto3.client("bedrock-runtime")
+
+# ガードレール ID（メモしておいた値に置き換える）
+GUARDRAIL_ID = "YOUR_GUARDRAIL_ID"
+GUARDRAIL_VERSION = "1"
+
+# モデル ID
+MODEL_ID = "us.amazon.nova-lite-v1:0"
+
+# ガードレール設定
+GUARDRAIL_CONFIG = {
+    "guardrailIdentifier": GUARDRAIL_ID,
+    "guardrailVersion": GUARDRAIL_VERSION,
+    "trace": "enabled"
+}
+
+
 def lambda_handler(event, context):
     """
     ガードレールを適用してモデルを呼び出す Lambda 関数
     """
-    # Bedrock Runtime クライアントの作成
-    client = boto3.client("bedrock-runtime")
-
-    # ガードレール ID（メモしておいた値に置き換える）
-    guardrail_id = "YOUR_GUARDRAIL_ID"
-    guardrail_version = "1"
-
     # プロンプト（event から取得、デフォルト値あり）
     prompt = event.get("prompt", "こんにちは。")
-
-    # モデル ID
-    model_id = "us.amazon.nova-lite-v1:0"
-
-    # ガードレール設定
-    guardrail_config = {
-        "guardrailIdentifier": guardrail_id,
-        "guardrailVersion": guardrail_version,
-        "trace": "enabled"
-    }
 
     # メッセージの作成
     messages = [
@@ -192,9 +193,9 @@ def lambda_handler(event, context):
 
     # Converse API の呼び出し（ガードレール適用）
     response = client.converse(
-        modelId=model_id,
+        modelId=MODEL_ID,
         messages=messages,
-        guardrailConfig=guardrail_config
+        guardrailConfig=GUARDRAIL_CONFIG
     )
 
     # レスポンスの取得
@@ -213,7 +214,8 @@ def lambda_handler(event, context):
             "Content-Type": "application/json"
         },
         "body": json.dumps({
-            "answer": "completed"
+            "answer": result_text,
+            "stopReason": stop_reason
         }, ensure_ascii=False)
     }
 ```
@@ -245,7 +247,7 @@ def lambda_handler(event, context):
 
 1. [**テスト**] を選択します。
 
-1. 実行結果が **成功** になり、レスポンスの `body` に「**申しわけありませんが、そのお問い合わせには対応いたしかねます。**」が含まれ、`stopReason` が `guardrail_intervened` であることを確認します。
+1. 実行結果が **成功** になり、ログ出力で Response: が「**申しわけありませんが、そのお問い合わせには対応いたしかねます。**」が含まれ、`stopReason` が `guardrail_intervened` であることを確認します。
 
 1. 次に、ガードレールでブロックされないプロンプトもテストします。[**イベント JSON**] を下記に書き換えて [**テスト**] を選択します。
     - ```json

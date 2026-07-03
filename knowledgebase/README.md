@@ -183,16 +183,20 @@
 import json
 import boto3
 
+# Bedrock Agent Runtime クライアントの作成
+client = boto3.client("bedrock-agent-runtime")
+
+# ナレッジベース ID（メモしておいた値に置き換える）
+KNOWLEDGE_BASE_ID = "YOUR_KNOWLEDGE_BASE_ID"
+
+# モデル ARN
+MODEL_ARN = "arn:aws:bedrock:us-west-2::foundation-model/amazon.nova-lite-v1:0"
+
+
 def lambda_handler(event, context):
     """
     作成したナレッジベースを呼び出して結果を返す Lambda 関数
     """
-    # Bedrock Agent Runtime クライアントの作成
-    client = boto3.client("bedrock-agent-runtime")
-
-    # ナレッジベース ID（メモしておいた値に置き換える）
-    knowledge_base_id = "YOUR_KNOWLEDGE_BASE_ID"
-
     # プロンプト（event から取得、デフォルト値あり）
     prompt = event.get("prompt", "こんにちは。")
 
@@ -202,8 +206,8 @@ def lambda_handler(event, context):
         retrieveAndGenerateConfiguration={
             "type": "KNOWLEDGE_BASE",
             "knowledgeBaseConfiguration": {
-                "knowledgeBaseId": knowledge_base_id,
-                "modelArn": "arn:aws:bedrock:us-west-2::foundation-model/amazon.nova-lite-v1:0"
+                "knowledgeBaseId": KNOWLEDGE_BASE_ID,
+                "modelArn": MODEL_ARN
             }
         }
     )
@@ -218,7 +222,7 @@ def lambda_handler(event, context):
         "headers": {
             "Content-Type": "application/json"
         },
-        "body": json.dumps({"answer": "completed"}, ensure_ascii=False)
+        "body": json.dumps({"answer": result_text}, ensure_ascii=False)
     }
 ```
 
