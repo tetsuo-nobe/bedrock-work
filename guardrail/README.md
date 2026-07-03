@@ -93,8 +93,10 @@
 
 ---
 
-### オプションタスク：作成したガードレールをコードから使用する
-#### このタスクを実行する場合は今を実施して下さい。実施しない場合は、[リソースの削除](#リソースの削除) の手順を実行して下さい。
+### オプションタスク：Lambda 関数から作成したガードレールを適用してモデルを呼び出す
+#### このタスクを実行する場合は以下を実施して下さい。実施しない場合は、[リソースの削除](#リソースの削除) の手順を実行して下さい。
+
+#### ガードレール ID の確認とバージョンの作成
 
 1. 作成したガードレールのページで、[**ガードレールの概要**] から [**ID**] の値をメモしておきます。
 
@@ -102,28 +104,152 @@
 
 1. [**説明**] に `version 1` と入力して [**バージョンを作成**] を選択します。
 
-1. 講師が案内した開発環境へアクセスします。
+#### Lambda 関数の実行ロールの作成
 
-1. ターミナルから以下のコマンドを実行して、AWS SDK for Python (boto3) を最新のものに更新します。(すでに実施済の場合は不要です。）
-    - `pip3 install boto3 --upgrade`
+1. AWS マネジメントコンソールのページ左下の CloudShell をクリックしてください。
 
-1. 以下のファイルを開き、コードを確認します。
-    - **bedrock-work/guardrail/call_guardrail.py**
-    - **環境に合わせて必要な部分を書き換えて保存します。**
-        - ヒント：59行目のガードレールの ID、60行目のバージョン
-
-1. ターミナルから以下のコマンドを実行して、コードを実行します。
+1. CloudShell のターミナルで下記のコマンドを実行します。
     - ```
-      cd ~/environment/bedrock-work/guardrail/
-
-      python3 call_guardrail.py
-      
+      curl -O https://tnobep-work-public.s3.ap-northeast-1.amazonaws.com/bedrock-work/create-lambda-role.sh && bash create-lambda-role.sh
       ```
 
-1. 以下のようにブロックされたメッセージが表示されることを確認します。
-    - **Text: 申しわけありませんが、そのお問い合わせには対応いたしかねます。**
+1. 「完了: ロール my-Lambda-Bedrock-role を作成しました。」と表示されれば成功です。
+    - 「ロール my-Lambda-Bedrock-role は既に存在します。処理をスキップします。」と表示された場合は、既にロールが作成済みですので、そのまま次の手順に進んでください。
 
-1. **コードから Bedrock のエージェントを使用した問い合わせができたことを確認しました。**
+#### Lambda 関数の作成
+
+1. AWS マネジメントコンソールのページ上部の **検索** で `lambda` と入力して **Lambda** のメニューを選択します。
+
+1. [**関数の作成**] を選択します。
+
+1. [**一から作成**] を選択します。
+
+1. [**関数名**] に下記を入力します。
+    - **(自分のID) の部分はご自身に割り当てられた ID の値に置き換えてください**
+    - ```
+      call-guardrail-(自分のID)
+      ```
+
+1. [**ランタイム**] で **Python 3.14** を選択します。
+
+1. [**デフォルトの実行ロールの変更**] を展開します。
+
+1. [**既存のロールを使用する**] を選択します。
+
+1. [**既存のロール**] で **my-Lambda-Bedrock-role** を選択します。
+
+1. [**関数の作成**] を選択します。
+
+#### Lambda 関数のコードの編集
+
+1. [**コード**] タブで、エディタに表示されている **lambda_function.py** の内容を **すべて削除** し、下記のコードを **コピーペースト** します。
+    - **`YOUR_GUARDRAIL_ID` の部分は、メモしておいたガードレール ID に置き換えてください**
+
+```python
+import json
+import boto3
+
+def lambda_handler(event, context):
+    """
+    ガードレールを適用してモデルを呼び出す Lambda 関数
+    """
+    # Bedrock Runtime クライアントの作成
+    client = boto3.client("bedrock-runtime")
+
+    # ガードレール ID（メモしておいた値に置き換える）
+    guardrail_id = "YOUR_GUARDRAIL_ID"
+    guardrail_version = "1"
+
+    # プロンプト（event から取得、デフォルト値あり）
+    prompt = event.get("prompt", "こんにちは。")
+
+    # モデル ID
+    model_id = "us.amazon.nova-lite-v1:0"
+
+    # ガードレール設定
+    guardrail_config = {
+        "guardrailIdentifier": guardrail_id,
+        "guardrailVersion": guardrail_version,
+        "trace": "enabled"
+    }
+
+    # メッセージの作成
+    messages = [
+        {
+            "role": "user",
+            "content": [
+                {"text": prompt},
+                {"guardContent": {"text": {"text": prompt}}}
+            ]
+        }
+    ]
+
+    # Converse API の呼び出し（ガードレール適用）
+    response = client.converse(
+        modelId=model_id,
+        messages=messages,
+        guardrailConfig=guardrail_config
+    )
+
+    # レスポンスの取得
+    output_message = response["output"]["message"]
+    result_text = output_message["content"][0]["text"]
+    stop_reason = response["stopReason"]
+
+    # 結果を表示
+    print(f"Stop Reason: {stop_reason}")
+    print(f"Response: {result_text}")
+
+    # API Gateway プロキシ統合のレスポンス形式で返す
+    return {
+        "statusCode": 200,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": json.dumps({
+            "answer": "completed"
+        }, ensure_ascii=False)
+    }
+```
+
+1. **コードの貼り付けが完了したら、[Deploy] を選択してデプロイします。**
+
+#### Lambda 関数のタイムアウト設定の変更
+
+1. [**設定**] タブを選択します。
+
+1. [**一般設定**] を選択して [**編集**] を選択します。
+
+1. [**タイムアウト**] を **30 秒** に変更します。
+
+1. [**保存**] を選択します。
+
+#### Lambda 関数のテスト実行
+
+1. [**テスト**] タブを選択します。
+
+1. [**イベント名**] に `test1` と入力します。
+
+1. [**イベント JSON**] に下記を入力します。
+    - ```json
+      {
+        "prompt": "熱が38度あり体がだるいのですが、どんな薬を飲めばいいですか？"
+      }
+      ```
+
+1. [**テスト**] を選択します。
+
+1. 実行結果が **成功** になり、レスポンスの `body` に「**申しわけありませんが、そのお問い合わせには対応いたしかねます。**」が含まれ、`stopReason` が `guardrail_intervened` であることを確認します。
+
+1. 次に、ガードレールでブロックされないプロンプトもテストします。[**イベント JSON**] を下記に書き換えて [**テスト**] を選択します。
+    - ```json
+      {
+        "prompt": "登山に興味があるのですが、日本で一番高い山は何ですか？"
+      }
+      ```
+      - 通常の回答が返り、`stopReason` が `end_turn` であることを確認します。
+
+1. **Lambda 関数からガードレールを適用したモデル呼び出しを行い、拒否トピックの問い合わせがブロックされることを確認しました。**
 
 ---
 # リソースの削除

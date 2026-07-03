@@ -13,10 +13,10 @@
 
 * インストラクターが指定した環境で AWS マネジメントコンソールにサインインして下さい。
     - **このワークの環境は、ワークを実施する時間帯のみ使用可能です。**
-* AWS マネジメントコンソールにサインインして、**講師より指定されたリージョン**を選択した状態にしてください。
+* AWS マネジメントコンソールにサインインして、**オレゴン (米国)**を選択した状態にしてください。
 * ご自分に割り当てられた **ID** を覚えておいてください。
-* 下記をクリックして、Download Raw file アイコンから **AnyCompany.pdf** をダウンロードして下さい。
-    - (https://github.com/tetsuo-nobe/bedrock-work/blob/main/knowledgebase/AnyCompany.pdf)
+* 下記リンクを右クリックして、リンク先保存を選択して **AnyCompany.pdf** をダウンロードして下さい。
+    - (https://dl39k3l39to9h.cloudfront.net/pdfs/AnyCompany.pdf)
     - この PDF は架空の会社 AnyCompany の休暇規定です。
 
 ---
@@ -50,7 +50,7 @@
 
 1. AWS マネジメントコンソールのページ上部の **検索**で `bedrock` と入力して **Amazon Bedrock** のメニューを選択します。
 1. ページ左側で [**構築**] の [**ナレッジベース**] を選択します。
-1. [**作成**] から [**ベクトルストアを含むナレッジベース**] を選択します。
+1. [**Create Managed KB**] から [**Unstructured Vector Store KB**] を選択します。
 1. [**ナレッジベース名**] に下記を入力します。
     - **(自分のID) の部分はご自身に割り当てられた ID の値に置き換えてください**
     - ```
@@ -121,39 +121,143 @@
 
 ---
 
-### オプションタスク：作成したナレッジベースをコードから使用する
-#### このタスクを実行する場合は今を実施して下さい。実施しない場合は、[リソースの削除](#リソースの削除) の手順を実行して下さい。
+### オプションタスク：Lambda 関数から作成したナレッジベースを呼び出す
+#### このタスクを実行する場合は以下を実施して下さい。実施しない場合は、[リソースの削除](#リソースの削除) の手順を実行して下さい。
+
+#### ナレッジベース ID の確認
 
 1. AWS マネジメントコンソールで、Bedrock のページを開き、ページ左側で **構築** の **ナレッジベース** を選択します。
 
 1. 作成したナレッジベースの名前のリンクを選択します。
-  
+
 1. [**ナレッジベースの概要**] で [**ナレッジベース ID**] をメモしておきます。
 
-1. 講師が案内した開発環境へアクセスします。
+#### Lambda 関数の実行ロールの作成
 
-1. ターミナルから以下のコマンドを実行して、AWS SDK for Python (boto3) を最新のものに更新します。
+1. AWS マネジメントコンソールのページ左下の CloudShell をクリックしてください。
+
+1. CloudShell のターミナルで下記のコマンドを実行します。
     - ```
-      cd ~/environment
-  
-      pip3 install boto3 --upgrade
-
+      curl -O https://tnobep-work-public.s3.ap-northeast-1.amazonaws.com/bedrock-work/create-lambda-role.sh && bash create-lambda-role.sh
       ```
 
-1. 以下のファイルを開き、コードを確認します。
-    - **bedrock-work/knowledgebase/call_kb.py**
-    - **環境に合わせて必要な部分を書き換えて保存します。**
-        - ヒント：8行目のリージョンと AWS アカウント ID、9行目のナレッジベースの ID
+1. 「完了: ロール my-Lambda-Bedrock-role を作成しました。」と表示されれば成功です。
+    - 「ロール my-Lambda-Bedrock-role は既に存在します。処理をスキップします。」と表示された場合は、既にロールが作成済みですので、そのまま次の手順に進んでください。
 
-1. ターミナルから以下のコマンドを実行して、コードを実行します。
+#### Lambda 関数の作成
+
+1. AWS マネジメントコンソールのページ上部の **検索** で `lambda` と入力して **Lambda** のメニューを選択します。
+
+1. [**関数の作成**] を選択します。
+
+1. [**一から作成**] を選択します。
+
+1. [**関数名**] に下記を入力します。
+    - **(自分のID) の部分はご自身に割り当てられた ID の値に置き換えてください**
     - ```
-      cd ~/environment/bedrock-work/knowledgebase/
-  
-      python3 call_kb.py
-
+      call-kb-(自分のID)
       ```
 
-1. **コードから Bedrock のナレッジベースを使用した問い合わせができたことを確認しました。**
+1. [**ランタイム**] で **Python 3.14** を選択します。
+
+1. [**その他の設定**] を展開します。
+
+1. [**カスタム実行ロール**] のトグルを有効化します。
+
+1. [**実行ロール**] で **my-Lambda-Bedrock-role** を選択します。
+
+1. [**保存**] を選択します。
+
+1. ページの下部にある [**関数の作成**] を選択します。
+
+1. [**Getting started**] が表示された場合は [**Dismiss**] を選択します。
+
+#### Lambda 関数のコードの編集
+
+1. [**コード**] タブで、エディタに表示されている **lambda_function.py** の内容を **すべて削除** し、下記のコードを **コピーペースト** します。
+    - **`YOUR_KNOWLEDGE_BASE_ID` の部分は、メモしておいたナレッジベース ID に置き換えてください**
+
+```python
+import json
+import boto3
+
+def lambda_handler(event, context):
+    """
+    作成したナレッジベースを呼び出して結果を返す Lambda 関数
+    """
+    # Bedrock Agent Runtime クライアントの作成
+    client = boto3.client("bedrock-agent-runtime")
+
+    # ナレッジベース ID（メモしておいた値に置き換える）
+    knowledge_base_id = "YOUR_KNOWLEDGE_BASE_ID"
+
+    # プロンプト（event から取得、デフォルト値あり）
+    prompt = event.get("prompt", "こんにちは。")
+
+    # ナレッジベースを使用した retrieve_and_generate の呼び出し
+    response = client.retrieve_and_generate(
+        input={"text": prompt},
+        retrieveAndGenerateConfiguration={
+            "type": "KNOWLEDGE_BASE",
+            "knowledgeBaseConfiguration": {
+                "knowledgeBaseId": knowledge_base_id,
+                "modelArn": "arn:aws:bedrock:us-west-2::foundation-model/amazon.nova-lite-v1:0"
+            }
+        }
+    )
+
+    # レスポンスからテキストを取得して表示
+    result_text = response["output"]["text"]
+    print(result_text)
+
+    # API Gateway プロキシ統合のレスポンス形式で返す
+    return {
+        "statusCode": 200,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": json.dumps({"answer": "completed"}, ensure_ascii=False)
+    }
+```
+
+1. **コードの貼り付けが完了したら、[Deploy] を選択してデプロイします。**
+
+#### Lambda 関数のタイムアウト設定の変更
+
+1. [**設定**] タブを選択します。
+
+1. [**一般設定**] を選択して [**編集**] を選択します。
+
+1. [**タイムアウト**] を **30 秒** に変更します。
+
+1. [**保存**] を選択します。
+
+#### Lambda 関数のテスト実行
+
+1. [**テスト**] タブを選択します。
+
+1. [**イベント名**] に `test1` と入力します。
+
+1. [**イベント JSON**] に下記を入力します。
+    - ```json
+      {
+        "prompt": "AnyCompany社では社員が結婚するときに何日間休暇が与えられますか？"
+      }
+      ```
+
+1. [**テスト**] を選択します。
+
+1. 実行結果が **成功** になり、[**ログ出力**] セクションに回答が表示されます。
+
+1. 他にも下記のプロンプトでテストしてみましょう。[**イベント JSON**] を書き換えて [**テスト**] を選択します。
+    - ```json
+      {
+        "prompt": "AnyCompany社の就業規則は労働基準法の第何条に基づいて規定されていますか？"
+      }
+      ```
+      - **第89条** を含む回答が表示されるはずです。
+
+1. **Lambda 関数から Bedrock のナレッジベースを呼び出し、企業の独自データを使った問い合わせができることを確認しました。**
 
 * 参考ドキュメント: [boto3 ドキュメントの retrieve_and_generate](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agent-runtime/client/retrieve_and_generate.html)
 ---
@@ -210,7 +314,7 @@
 * (講師が行います。）
 * CloudShell から下記を実行
     ```
-    curl -L -o bedrock-s3-clear.sh https://tnobep-demo-public.s3.amazonaws.com/bedrock-s3-clear.sh && bash bedrock-s3-clear.sh ap-northeast-1
+    curl -L -o bedrock-s3-clear.sh https://tnobep-demo-public.s3.amazonaws.com/bedrock-s3-clear.sh && bash bedrock-s3-clear.sh us-west-2
     ```
 
 
