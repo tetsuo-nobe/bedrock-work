@@ -7,10 +7,13 @@ Amazon Bedrock を活用したサーバーレス Web アプリケーションを
 
 ## 課題一覧
 
-| 課題 | タイトル | 内容 |
-|------|---------|------|
-| [課題 1](challenge1/README.md) | サーバーレスの生成 AI Web アプリケーションの構築 | Bedrock の Converse API を使用して、ユーザーのプロンプトに対して基盤モデル（Amazon Nova Lite v1）が回答を生成するアプリケーションを構築します。 |
-| [課題 2](challenge2/README.md) | サーバーレスの RAG アプリケーションの構築 | Bedrock のナレッジベースと RetrieveAndGenerate API を使用して、企業の独自ドキュメントをもとに回答を生成する RAG アプリケーションを構築します。 |
+### [課題 1: サーバーレスの生成 AI Web アプリケーションの構築](challenge1/README.md)
+
+Bedrock の Converse API を使用して、ユーザーのプロンプトに対して基盤モデル（Amazon Nova Lite v1）が回答を生成するアプリケーションを構築します。
+
+### [課題 2: サーバーレスの RAG アプリケーションの構築](challenge2/README.md)
+
+Bedrock のナレッジベースと RetrieveAndGenerate API を使用して、企業の独自ドキュメントをもとに回答を生成する RAG アプリケーションを構築します。
 
 ---
 
