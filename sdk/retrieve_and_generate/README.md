@@ -149,7 +149,7 @@ def lambda_handler(event, context):
         }
 ```
 
-3. **重要**: コード内の `KNOWLEDGE_BASE_ID` を、ステップ 1 で確認したナレッジベース ID に置き換えてください
+3. **重要**: コード内の `KNOWLEDGE_BASE_ID` を、前のステップで確認したナレッジベース ID に置き換えてください
 4. 「**Deploy**」ボタンをクリックしてコードをデプロイします
 
 ---
@@ -229,7 +229,7 @@ def lambda_handler(event, context):
 
 ### ステップ 9: 動作確認
 
-1. 以下の URL にアクセスします（講師から案内されます）：
+1. 以下の URL にアクセスします：
 
    `https://tnobep-work-public.s3.ap-northeast-1.amazonaws.com/bedrock-work/index.html`
 
