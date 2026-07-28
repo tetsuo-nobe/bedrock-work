@@ -385,3 +385,13 @@ Bedrock の応答には時間がかかる場合があるため、タイムアウ
 - [RetrieveAndGenerate API リファレンス](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent-runtime_RetrieveAndGenerate.html)
 - [AWS Lambda ドキュメント](https://docs.aws.amazon.com/lambda/)
 - [Amazon API Gateway ドキュメント](https://docs.aws.amazon.com/apigateway/)
+
+---
+
+## 環境のクリアについて
+* (講師が行います。）
+* CloudShell から下記を実行
+    ```
+    curl -L -o bedrock-s3-clear.sh https://tnobep-demo-public.s3.amazonaws.com/bedrock-s3-clear.sh && bash bedrock-s3-clear.sh us-west-2
+    ```
+
