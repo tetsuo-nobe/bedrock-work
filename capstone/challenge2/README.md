@@ -10,7 +10,7 @@
 
 ## アーキテクチャ
 
-![](images/overview.png)
+![](images/kadai2.png)
 
 ### 使用する AWS サービス
 
