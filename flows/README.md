@@ -58,7 +58,7 @@
    
 1. キャンバスで、**Flow Input** ノードを選択します。
 
-1. 左側で、**出力** の document のタイプを Object に変更します。
+1. 左側で、**出力** の document のタイプを **Object** に変更します。
 
 1. キャンバスで、**Prompts** ノードを選択します。
 
@@ -66,7 +66,7 @@
 
 1. dest の式を下記を `$.data.dest` に変更します。
 
-1. count のタイプを Numberに変更します。
+1. count のタイプを **Number** に変更します。
 
 1. count の式を下記を `$.data.count` に変更します。
 
