@@ -124,7 +124,7 @@
 
 1. **S3 Storage** ノードの Input の objectKey の左横の丸を、**Flow Input** ノードの　Output の丸にドラッグアンドドロップでつなげます。
 
-![概要](images/flow2.png)
+    ![概要](images/flow2.png)
 
 1. **S3 Storage** ノードを選択します。
 
