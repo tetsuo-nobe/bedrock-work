@@ -40,7 +40,7 @@
 
 1. **LabWorkspacePassword** で表示されているパスワードの値をメモしておきます。
 
-1. **LabWorkspaceURL** の値のリンクを選択します。
+1. **LabWorkspaceURL** の値のリンクをコピーして、ブラウザの新しいタブで開きます。
 
 1. メモしておいたパスワードを入力して SUBMIT を選択し、VS Code Server を表示します。
 
