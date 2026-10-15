@@ -36,3 +36,41 @@ Bedrock のナレッジベースと RetrieveAndGenerate API を使用して、�
 2. 各課題の手順に従ってリソースを作成し、**課題パート**でコードを完成させます。
 3. 動作確認まで行い、正しく動くことを確認してください。
 4. 解答例は各課題の `solution` フォルダを参照してください。
+
+---
+
+## 事前に作成が必要なリソース
+
+* challenge1 で作成する Lambda 関数用の `my-Lambda-Bedrock-role` ロールは、下記のコマンドで作成
+
+```
+# 1. 信頼ポリシー(Lambda サービスが assume 可能)を指定してロールを作成
+aws iam create-role \
+  --role-name my-Lambda-Bedrock-role \
+  --assume-role-policy-document '{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "lambda.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
+      }
+    ]
+  }'
+
+
+# 2. AmazonBedrockFullAccess をアタッチ
+aws iam attach-role-policy \
+  --role-name my-Lambda-Bedrock-role \
+  --policy-arn arn:aws:iam::aws:policy/AmazonBedrockFullAccess
+
+
+# 3. AWSLambdaBasicExecutionRole をアタッチ
+aws iam attach-role-policy \
+  --role-name my-Lambda-Bedrock-role \
+  --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+```
+
+
